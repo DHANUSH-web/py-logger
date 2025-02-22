@@ -28,8 +28,8 @@ class Color:
 
 class Logger:
 
-    def __init__(self, file_name: str = "pymod_debug.log", debug: bool = False) -> None:
-        self.root_dir: str = os.path.join(os.getcwd(), "cache")
+    def __init__(self, root_dir: str = "cache", file_name: str = "pymod_debug.log", debug: bool = False) -> None:
+        self.root_dir: str = os.path.join(os.getcwd(), root_dir)
         self.file_name: str = os.path.join(self.root_dir, file_name)
         self._start_time: datetime.datetime = datetime.datetime.now()
         self._end_time: datetime.datetime | None = None
