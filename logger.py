@@ -28,7 +28,8 @@ class Color:
 
 class Logger:
 
-    def __init__(self, root_dir: str = "cache", file_name: str = "test_logger.log", debug: bool = False) -> None:
+    def __init__(self, name: str, root_dir: str = "cache", file_name: str = "test_logger.log", debug: bool = False) -> None:
+        self.name: str = name
         self.root_dir: str = os.path.join(os.getcwd(), root_dir)
         self.file_name: str = os.path.join(self.root_dir, file_name)
         self._start_time: datetime.datetime = datetime.datetime.now()
@@ -54,7 +55,7 @@ class Logger:
         self.file = open(self.file_name, "w+")
 
         # Initialize the logger
-        message = f">>> Logger initialized at {self._start_time} <<<"
+        message = f">>> Logger {self.name} initialized at {self._start_time} <<<"
         self.file.write(f"{message}\n")
         self.__print_log(message=f"{Color.BOLD}{message}", level="message")
 
@@ -78,7 +79,7 @@ class Logger:
 
     def delete_log_file(self) -> None:
         if self.is_active():
-            raise RuntimeError("Logger is active, please stop the logger before deleting log file")
+            raise RuntimeError(f"Logger {self.name} is active, please stop the logger before deleting log file")
         os.remove(self.file_name)
 
     def is_active(self) -> bool:
@@ -111,7 +112,7 @@ class Logger:
         self._end_time = datetime.datetime.now()
 
         # update final log about logger status
-        message = f">>> Logger exited at {self._end_time} <<<"
+        message = f">>> Logger {self.name} exited at {self._end_time} <<<"
         self.file.write(message)
         self.__print_log(message=f"{Color.BOLD}{message}", level="message")
 
